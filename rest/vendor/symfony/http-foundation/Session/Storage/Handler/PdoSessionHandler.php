@@ -569,10 +569,6 @@ class PdoSessionHandler implements \SessionHandlerInterface
      *
      * @throws \DomainException When an unsupported PDO driver is used
      *
-     * @todo implement missing advisory locks
-     *       - for oci using DBMS_LOCK.REQUEST
-     *       - for sqlsrv using sp_getapplock with LockOwner = Session
-     */
     private function doAdvisoryLock($sessionId)
     {
         switch ($this->driver) {
