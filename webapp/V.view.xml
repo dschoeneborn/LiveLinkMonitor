@@ -1,0 +1,533 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:mc="sap.suite.ui.microchart"
+    controllerName="sap.m.sample.SplitApp.C"
+    xmlns="sap.m">
+    <SplitApp id="Monitoring" initialDetail="overallDetail" initialMaster="overallMaster">
+        <detailPages>
+            <Page id="overallDetail" title="Globale Statistiken" class="sapUiStdPage" showNavButton="true"
+                  navButtonText="Back" navButtonPress="onPressDetailBack">
+                <content>
+                    <IconTabBar
+                        id="idIconTabBarMulti"
+                        expanded="{device>/isNoPhone}"
+                        class="sapUiResponsiveContentPadding">
+                        <items>
+                            <IconTabFilter
+                                icon="sap-icon://horizontal-bullet-chart"
+                                text="Laufzeit">
+                                <viz:VizFrame xmlns="sap.viz" id="vizOperatingTime" vizType='bullet' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/OperatingTime}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Light"
+                                                                              value="{Light}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Laufzeit"
+                                                                            value="{Value}" />
+                                                <viz.data:MeasureDefinition name="Garantierte Laufzeit"
+                                                                            value="70000" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="actualValues" type="Measure"
+                                                            values="Laufzeit" />
+                                        <viz.feeds:FeedItem uid="targetValues" type="Measure"
+                                                            values="Garantierte Laufzeit" />
+                                        <viz.feeds:FeedItem  uid="categoryAxis" type="Dimension"
+                                                             values="Light" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                            <IconTabFilter
+                                icon="sap-icon://vertical-bullet-chart"
+                                text="Höchsttemperatur">
+                                <Label text="Von:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="tempDateFrom" placeholder="Datum" change="htempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="tempTimeFrom" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="htempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <Label text="Bis:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="tempDateTo" placeholder="Datum" change="htempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="tempTimeTo" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="htempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <viz:VizFrame xmlns="sap.viz" id="vizTemperature" vizType='vertical_bullet' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/Temperature}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Light"
+                                                                              value="{Light}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Temperatur"
+                                                                            value="{Value}" />
+                                                <viz.data:MeasureDefinition name="Garantierte Höchsttemperatur"
+                                                                            value="35.5" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="actualValues" type="Measure"
+                                                            values="Temperatur" />
+                                        <viz.feeds:FeedItem uid="targetValues" type="Measure"
+                                                            values="Garantierte Höchsttemperatur" />
+                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                                                            values="Light" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                            <IconTabFilter
+                                icon="sap-icon://line-chart"
+                                text="Stromverbrauch">
+                                <Label text="Von:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="powDateFrom" placeholder="Datum" change="powerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="powTimeFrom" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="powerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <Label text="Bis:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="powDateTo" placeholder="Datum" change="powerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="powTimeTo" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="powerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <viz:VizFrame xmlns="sap.viz" id="vizPower" vizType='line' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/Power}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Zeit"
+                                                                              value="{Timestamp}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Stromverbrauch"
+                                                                            value="{Value}" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="valueAxis" type="Measure"
+                                                            values="Stromverbrauch" />
+                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                                                            values="Zeit" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                            <IconTabFilter
+                                icon="sap-icon://horizontal-bar-chart-2"
+                                text="Schaltvorgänge">
+                                <viz:VizFrame xmlns="sap.viz" id="vizSwitchCount" vizType='bar' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/SwitchCount}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Light"
+                                                                              value="{Light}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Schaltvorgänge"
+                                                                            value="{Value}" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="valueAxis" type="Measure"
+                                                            values="Schaltvorgänge" />
+                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                                                            values="Light" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                        </items>
+                    </IconTabBar>
+                </content>
+            </Page>
+            <Page id="lightDetail" title="Leuchten Statistik" class="sapUiStdPage" showNavButton="true"
+                  navButtonText="Back" navButtonPress="onPressDetailBack">
+                <content>
+                    <IconTabBar
+                        id="lightsTabBar"
+                        expanded="{device>/isNoPhone}"
+                        class="sapUiResponsiveContentPadding">
+                        <items>
+                            <IconTabFilter
+                                icon="sap-icon://overview-chart"
+                                text="Überblick">
+                                <VBox >
+                                    <HBox class="sapUiSmallMarginTop">
+                                        <VBox>
+                                            <Label text="Laufzeit" class="sapUiTinyMarginBottom" />
+                                            <mc:HarveyBallMicroChart id="otMC" items="{path: '/OperatingTime'}" size="M" total="70" totalScale="Tsd." showTotal="true" showFractions="true" press="press">
+                                                <mc:items>
+                                                    <mc:HarveyBallMicroChartItem fraction="{Value}" color="Good" formattedLabel="true" fractionScale="Tsd." />
+                                                </mc:items>
+                                            </mc:HarveyBallMicroChart>
+                                        </VBox>
+                                        <VBox>
+                                            <Label text="Schaltvorgänge" class="sapUiTinyMarginBottom" />
+                                            <mc:HarveyBallMicroChart id="scMC" items="{path: '/SwitchCount'}" size="M" total="200" totalScale="Tsd." showTotal="true" showFractions="true" press="press">
+                                                <mc:items>
+                                                    <mc:HarveyBallMicroChartItem fraction="{Value}" color="Good" formattedLabel="true" fractionScale="Tsd." />
+                                                </mc:items>
+                                            </mc:HarveyBallMicroChart>
+                                        </VBox>
+                                    </HBox>
+                                </VBox>
+                            </IconTabFilter>
+                            <IconTabSeparator icon=""/>
+                            <IconTabFilter
+                                icon="sap-icon://temperature"
+                                text="Temperatur">
+                                <Label text="Von:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="tempDateFromL" placeholder="Datum" change="lTempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="tempTimeFromL" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="lTempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <Label text="Bis:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="tempDateToL" placeholder="Datum" change="lTempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="tempTimeToL" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="lTempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <viz:VizFrame xmlns="sap.viz" id="vizLTemp" vizType='line' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/Temperature}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Zeit"
+                                                                              value="{Timestamp}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Temperatur"
+                                                                            value="{Value}" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="valueAxis" type="Measure"
+                                                            values="Temperatur" />
+                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                                                            values="Zeit" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                            <IconTabFilter
+                                icon="sap-icon://line-chart"
+                                text="Stromverbrauch">
+                                <Label text="Von:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="powerDateFromL" placeholder="Datum" change="lPowerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="powerTimeFromL" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="lPowerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <Label text="Bis:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="powerDateToL" placeholder="Datum" change="lPowerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="powerTimeToL" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="lPowerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <viz:VizFrame xmlns="sap.viz" id="vizLPower" vizType='line' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/Power}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Zeit"
+                                                                              value="{Timestamp}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Stromverbrauch"
+                                                                            value="{Value}" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="valueAxis" type="Measure"
+                                                            values="Stromverbrauch" />
+                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                                                            values="Zeit" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                        </items>
+                    </IconTabBar>
+                </content>
+            </Page>
+            <Page id="groupDetail" title="Gruppen Statistik" class="sapUiStdPage" showNavButton="true"
+                  navButtonText="Back" navButtonPress="onPressDetailBack">
+                <content>
+                    <IconTabBar
+                        expanded="{device>/isNoPhone}"
+                        class="sapUiResponsiveContentPadding">
+                        <items>
+                            <IconTabFilter
+                                icon="sap-icon://horizontal-bullet-chart"
+                                text="Laufzeit">
+                                <viz:VizFrame xmlns="sap.viz" id="vizOperatingTimeG" vizType='bullet' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/OperatingTime}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Light"
+                                                                              value="{Light}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Laufzeit"
+                                                                            value="{Value}" />
+                                                <viz.data:MeasureDefinition name="Garantierte Laufzeit"
+                                                                            value="70000" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="actualValues" type="Measure"
+                                                            values="Laufzeit" />
+                                        <viz.feeds:FeedItem uid="targetValues" type="Measure"
+                                                            values="Garantierte Laufzeit" />
+                                        <viz.feeds:FeedItem  uid="categoryAxis" type="Dimension"
+                                                             values="Light" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                            <IconTabFilter
+                                icon="sap-icon://vertical-bullet-chart"
+                                text="Höchsttemperatur">
+                                <Label text="Von:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="tempDateFromG" placeholder="Datum" change="gHTempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="tempTimeFromG" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="gHTempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <Label text="Bis:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="tempDateToG" placeholder="Datum" change="gHTempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="tempTimeToG" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="gHTempChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <viz:VizFrame xmlns="sap.viz" id="vizTemperatureG" vizType='vertical_bullet' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/Temperature}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Light"
+                                                                              value="{Light}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Temperatur"
+                                                                            value="{Value}" />
+                                                <viz.data:MeasureDefinition name="Garantierte Höchsttemperatur"
+                                                                            value="35.5" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="actualValues" type="Measure"
+                                                            values="Temperatur" />
+                                        <viz.feeds:FeedItem uid="targetValues" type="Measure"
+                                                            values="Garantierte Höchsttemperatur" />
+                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                                                            values="Light" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                            <IconTabFilter
+                                icon="sap-icon://line-chart"
+                                text="Stromverbrauch">
+                                <Label text="Von:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="powDateFromG" placeholder="Datum" change="gPowerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="powTimeFromG" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="gPowerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <Label text="Bis:" />
+                                <HBox class="sapUiSmallMarginBottom" >
+                                    <DatePicker id="powDateToG" placeholder="Datum" change="gPowerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </DatePicker>
+                                    <TimePicker id="powTimeToG" placeholder="Uhrzeit" displayFormat="HH:mm" width="100%" change="gPowerChange">
+                                        <layoutData>
+                                            <FlexItemData growFactor="1" />
+                                        </layoutData>
+                                    </TimePicker>
+                                </HBox>
+                                <viz:VizFrame xmlns="sap.viz" id="vizPowerG" vizType='line' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/Power}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Zeit"
+                                                                              value="{Timestamp}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Stromverbrauch"
+                                                                            value="{Value}" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="valueAxis" type="Measure"
+                                                            values="Stromverbrauch" />
+                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                                                            values="Zeit" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                            <IconTabFilter
+                                icon="sap-icon://horizontal-bar-chart-2"
+                                text="Schaltvorgänge">
+                                <viz:VizFrame xmlns="sap.viz" id="vizSwitchCountG" vizType='bar' width="100%">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset data="{/SwitchCount}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition name="Light"
+                                                                              value="{Light}" />
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition name="Schaltvorgänge"
+                                                                            value="{Value}" />
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem uid="valueAxis" type="Measure"
+                                                            values="Schaltvorgänge" />
+                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                                                            values="Light" />
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </IconTabFilter>
+                        </items>
+                    </IconTabBar>
+                </content>
+            </Page>
+			
+        </detailPages>
+                
+        <masterPages>
+            <Page id="overallMaster" title="Übersicht" icon="sap-icon://action" class="sapUiStdPage">
+                <content>
+                    <List>
+                        <items>
+                            <StandardListItem title="Übersicht" type="Active" press="onPressGoToOverallDetail" icon="sap-icon://Chart-Tree-Map"/>
+                            <StandardListItem title="Leuchten" type="Navigation" press="onPressGoToLightsMaster" icon="sap-icon://lightbulb"/>
+                            <StandardListItem title="Gruppen" type="Navigation" press="onPressGoToGroupsMaster" icon="sap-icon://group-2"/>
+                        </items>
+                    </List>
+                </content>
+            </Page>
+            <Page id="lightsMaster" title="Alle Leuchten" icon="sap-icon://action" class="sapUiStdPage" showNavButton="true"
+                  navButtonPress="onPressMasterBack">
+                <content>
+                    <List itemPress="onLightItemPress" id="lightList" items="{path: '/Lights'}">
+                        <items>
+                            <StandardListItem title="{ID}"  type="Active" custom:group="{Group_ID}"/>
+                        </items>
+                    </List>
+                </content>
+            </Page>
+            <Page id="groupsMaster" title="Alle Gruppen" icon="sap-icon://action" class="sapUiStdPage" showNavButton="true"
+                  navButtonPress="onPressMasterBack">
+                <content>
+                    <List itemPress="onGroupItemPress" id="groupList" items="{path: '/Groups', sorter: {path:'Name'}}">
+                        <items>
+                            <StandardListItem title="{Name}" type="Active" custom:id="{ID}"/>
+                        </items>
+                    </List>
+                </content>
+            </Page>
+        </masterPages>
+    </SplitApp>
+</mvc:View>
