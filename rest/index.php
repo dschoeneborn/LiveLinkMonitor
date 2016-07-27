@@ -3,10 +3,10 @@ require_once __DIR__.'/vendor/autoload.php';
 require_once 'LiveLink_DB.php';
 
 //Datenbankkonfiguration
-define("MYSQL_HOST", "rdbms.strato.de");
-define("MYSQL_USER", "U2584476");
-define("MYSQL_PW", "livelink123");
-define("MYSQL_DB", "DB2584476");
+define("MYSQL_HOST", "localhost");
+define("MYSQL_USER", "dev");
+define("MYSQL_PW", "devui5");
+define("MYSQL_DB", "livelink");
 
 $app = new Silex\Application();
 
