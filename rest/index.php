@@ -30,8 +30,6 @@ $app->get('/operatingtime/last/group/{id}', function ($id) {
     $json = $ll->getJSONfromSelect($sql, "OperatingTime");
 
     return $json;
-    
-    return $json;
 });
 
 $app->get('/operatingtime/last/{id}', function ($id) {
