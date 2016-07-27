@@ -34,7 +34,7 @@ class LiveLink_DB
     }
 
 
-    public function getJSONfromSelect($sql, $topic)
+    public function getJSONFromSelect($sql, $topic)
     {
         $result = mysqli_query($this->connection, $sql) or die("Error in Selecting " . mysqli_error($this->connection));
 

@@ -14,7 +14,7 @@ $app->get('/operatingtime/last', function () {
     $sql = "SELECT ID AS Light, OperatingTime AS Value FROM Last_Values";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "OperatingTime");
+    $json = $ll->getJSONFromSelect($sql, "OperatingTime");
 
     return $json;
 });
@@ -27,7 +27,7 @@ $app->get('/operatingtime/last/group/{id}', function ($id) {
         AND l.Group_ID = '" . $id . "'";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "OperatingTime");
+    $json = $ll->getJSONFromSelect($sql, "OperatingTime");
 
     return $json;
 });
@@ -37,7 +37,7 @@ $app->get('/operatingtime/last/{id}', function ($id) {
     $sql = "SELECT ID, OperatingTime AS Value FROM Last_Values WHERE ID='" . $id . "'";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "OperatingTime");
+    $json = $ll->getJSONFromSelect($sql, "OperatingTime");
     
     return $json;
 });
@@ -49,7 +49,7 @@ $app->get('/temperature/max/{from}/{to}', function ($from, $to) {
         GROUP BY t.Light_ID";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "Temperature");
+    $json = $ll->getJSONFromSelect($sql, "Temperature");
 
     return $json;
 });
@@ -62,7 +62,7 @@ $app->get('/temperature/max/group/{id}/{from}/{to}', function ($id, $from, $to) 
       GROUP BY l.ID";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "Temperature");
+    $json = $ll->getJSONFromSelect($sql, "Temperature");
 
     return $json;
 });
@@ -74,7 +74,7 @@ $app->get('/temperature/{id}/{from}/{to}', function ($id, $from, $to) {
         AND Light_ID = '" . $id . "'";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "Temperature");
+    $json = $ll->getJSONFromSelect($sql, "Temperature");
 
     return $json;
 });
@@ -86,7 +86,7 @@ $app->get('/power/sum/{from}/{to}', function ($from, $to) {
         GROUP BY Timestamp";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "Power");
+    $json = $ll->getJSONFromSelect($sql, "Power");
 
     return $json;
 });
@@ -99,7 +99,7 @@ $app->get('/power/sum/group/{id}/{from}/{to}', function ($id, $from, $to) {
         GROUP BY Timestamp";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "Power");
+    $json = $ll->getJSONFromSelect($sql, "Power");
 
     return $json;
 });
@@ -111,7 +111,7 @@ $app->get('/power/{id}/{from}/{to}', function ($id, $from, $to) {
         AND Light_ID = '" . $id . "'";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "Power");
+    $json = $ll->getJSONFromSelect($sql, "Power");
 
     return $json;
 });
@@ -120,7 +120,7 @@ $app->get('/switchcount/last', function () {
     $sql = "SELECT ID AS Light, SwitchCount AS Value FROM Last_Values";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "SwitchCount");
+    $json = $ll->getJSONFromSelect($sql, "SwitchCount");
     
     return $json;
 });
@@ -132,7 +132,7 @@ $app->get('/switchcount/last/group/{id}', function ($id) {
         AND l.Group_ID = '" . $id . "'";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "SwitchCount");
+    $json = $ll->getJSONFromSelect($sql, "SwitchCount");
     
     return $json;
 });
@@ -141,7 +141,7 @@ $app->get('/switchcount/last/{id}', function ($id) {
     $sql = "SELECT ID, SwitchCount AS Value FROM Last_Values WHERE ID='" . $id . "'";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "SwitchCount");
+    $json = $ll->getJSONFromSelect($sql, "SwitchCount");
     
     return $json;
 });
@@ -150,7 +150,7 @@ $app->get('/lights', function () {
     $sql = "SELECT ID, Group_ID FROM Lights";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "Lights");
+    $json = $ll->getJSONFromSelect($sql, "Lights");
 
     
     return $json;
@@ -160,7 +160,7 @@ $app->get('/groups', function () {
     $sql = "SELECT ID, Name FROM Groups";
 
     $ll = new LiveLink_DB(MYSQL_HOST, MYSQL_USER, MYSQL_PW, MYSQL_DB);
-    $json = $ll->getJSONfromSelect($sql, "Groups");
+    $json = $ll->getJSONFromSelect($sql, "Groups");
     
     return $json;
 });
