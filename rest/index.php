@@ -9,7 +9,7 @@ define("MYSQL_PW", "devui5");
 define("MYSQL_DB", "livelink");
 
 $app = new Silex\Application();
-
+//
 $app->get('/operatingtime/last', function () {
     $sql = "SELECT ID AS Light, OperatingTime AS Value FROM Last_Values";
 
@@ -18,7 +18,7 @@ $app->get('/operatingtime/last', function () {
 
     return $json;
 });
-
+//
 $app->get('/operatingtime/last/group/{id}', function ($id) {
 
     $sql = "SELECT lv.ID AS Light, lv.OperatingTime AS Value
@@ -31,7 +31,7 @@ $app->get('/operatingtime/last/group/{id}', function ($id) {
 
     return $json;
 });
-
+//
 $app->get('/operatingtime/last/{id}', function ($id) {
 
     $sql = "SELECT ID, OperatingTime AS Value FROM Last_Values WHERE ID='" . $id . "'";
