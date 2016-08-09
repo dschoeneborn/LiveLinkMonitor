@@ -41,7 +41,7 @@ $app->get('/operatingtime/last/{id}', function ($id) {
     
     return $json;
 });
-
+//
 $app->get('/temperature/max/{from}/{to}', function ($from, $to) {
     $sql = "SELECT t.Light_ID AS Light, max(t.Value) AS Value, t.Timestamp AS Time
         FROM Temperature t
@@ -53,7 +53,7 @@ $app->get('/temperature/max/{from}/{to}', function ($from, $to) {
 
     return $json;
 });
-
+//
 $app->get('/temperature/max/group/{id}/{from}/{to}', function ($id, $from, $to) {
     $sql = "SELECT l.ID AS Light, max(t.Value) AS Value
       FROM Temperature t, Lights l
