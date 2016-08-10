@@ -31,7 +31,7 @@ var appRouter = function(app) {
         +"WHERE Timestamp BETWEEN '" + req.params.from + "' AND '" + req.params.to + "' "
         +"GROUP BY t.Light_ID";
 
-        this.connect.responseQuery(sql, "OperatingTime", res);
+        this.connect.responseQuery(sql, "Temperature", res);
     });
 
     app.get("/groups/:id/temperature/:from/:to/max", function(req, res) {
@@ -41,8 +41,17 @@ var appRouter = function(app) {
         +"AND t.Timestamp BETWEEN '" + req.params.from + "' AND '" + req.params.to + "' "
         +"GROUP BY l.ID";
 
-        this.connect.responseQuery(sql, "OperatingTime", res);
+        this.connect.responseQuery(sql, "Temperature", res);
     });
-}
+
+    app.get("/lights/:id/temperature/:from/:to", function(req, res) {
+        var sql = "SELECT t.Value AS Value, t.Timestamp "
+        +"FROM Temperature t "
+        +"WHERE Timestamp BETWEEN '" + req.params.from + "' AND '" + req.params.to + "' "
+        +"AND Light_ID = '" + req.params.id + "'";
+
+        this.connect.responseQuery(sql, "Temperature", res);
+    });
+};
 
 module.exports = appRouter;

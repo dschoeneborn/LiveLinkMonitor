@@ -66,7 +66,7 @@ $app->get('/temperature/max/group/{id}/{from}/{to}', function ($id, $from, $to) 
 
     return $json;
 });
-
+//
 $app->get('/temperature/{id}/{from}/{to}', function ($id, $from, $to) {
     $sql = "SELECT t.Value AS Value, t.Timestamp
         FROM Temperature t
