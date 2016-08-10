@@ -9,7 +9,7 @@ sap.ui.define([
     "use strict";
     var CController;
     CController = Controller.extend("sap.m.sample.SplitApp.C", {
-        serviceHost : "http://livelink.schoeneborn-consulting.de/rest/",
+        serviceHost : "http://txui5t01/rest/",
         onInit: function () {
             this.getSplitAppObj().setHomeIcon({
                 'icon': 'desktop.ico'
