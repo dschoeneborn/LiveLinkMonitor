@@ -9,6 +9,7 @@ sap.ui.define([
     "use strict";
     var CController;
     CController = Controller.extend("sap.m.sample.SplitApp.C", {
+        serviceHost : "http://livelink.schoeneborn-consulting.de/rest/",
         onInit: function () {
             this.getSplitAppObj().setHomeIcon({
                 'icon': 'desktop.ico'
@@ -72,7 +73,7 @@ sap.ui.define([
 //      2.Create a JSON Model and set the data
 
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", "http://livelink.schoeneborn-consulting.de/rest/switchcount/last", true); // false for synchronous request
+            xmlHttp.open("GET", this.serviceHost+"switchcount/last", true); // false for synchronous request
             xmlHttp.onload = function (e) {
                 if (xmlHttp.readyState === 4) {
                     if (xmlHttp.status === 200) {
@@ -130,7 +131,7 @@ sap.ui.define([
                     elem.Timestamp = new Date(yr, mon-1, dt, hr, min, sek).getTime();
                 });
             });*/
-            oModel.loadData("http://livelink.schoeneborn-consulting.de/rest/power/sum/" + oDateFormat.format(from) + "/" + oDateFormat.format(to));
+            oModel.loadData(this.serviceHost+"power/sum/" + oDateFormat.format(from) + "/" + oDateFormat.format(to));
         },
         initPowerViz: function () {
             //      1.Get the id of the VizFrame
@@ -152,7 +153,10 @@ sap.ui.define([
                     }
                 },
                 plotArea: {
-                    colorPalette: d3.scale.category20().range()
+                    colorPalette: d3.scale.category20().range(),
+                    marker: {
+                        visible: false
+                    }
                 },
                /* xAxis : {
                     scale : {
@@ -182,7 +186,7 @@ sap.ui.define([
             var oVizFrame = this.getView().byId("vizTemperature");
             var oModel = new JSONModel();
 
-            oModel.loadData("http://livelink.schoeneborn-consulting.de/rest/temperature/max/" + oDateFormat.format(from) + "/" + oDateFormat.format(to));
+            oModel.loadData(this.serviceHost+"temperature/max/" + oDateFormat.format(from) + "/" + oDateFormat.format(to));
             oVizFrame.setModel(oModel);
         },
         initHTemperatureViz: function () {
@@ -231,7 +235,7 @@ sap.ui.define([
             var oModel = new JSONModel();
 
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", "http://livelink.schoeneborn-consulting.de/rest/operatingtime/last", true); // false for synchronous request
+            xmlHttp.open("GET", this.serviceHost+"operatingtime/last", true); // false for synchronous request
             xmlHttp.onload = function (e) {
                 if (xmlHttp.readyState === 4) {
                     if (xmlHttp.status === 200) {
@@ -274,12 +278,12 @@ sap.ui.define([
         },
         initLights: function () {
             var oModel = new JSONModel();
-            oModel.loadData("http://livelink.schoeneborn-consulting.de/rest/lights");
+            oModel.loadData(this.serviceHost+"lights");
             this.byId("lightList").setModel(oModel);
         },
         initGroups: function () {
             var oModel = new JSONModel();
-            oModel.loadData("http://livelink.schoeneborn-consulting.de/rest/groups");
+            oModel.loadData(this.serviceHost+"groups");
             this.byId("groupList").setModel(oModel);
         },
         setLTempViz: function (id, from, to) {
@@ -287,7 +291,7 @@ sap.ui.define([
 
             var oVizFrame = this.getView().byId("vizLTemp");
             var oModel = new JSONModel();
-            var url = "http://livelink.schoeneborn-consulting.de/rest/temperature/" + id + "/" + oDateFormat.format(from) + "/" + oDateFormat.format(to);
+            var url = this.serviceHost+"temperature/" + id + "/" + oDateFormat.format(from) + "/" + oDateFormat.format(to);
 
             oModel.loadData(url);
             oVizFrame.setModel(oModel);
@@ -312,7 +316,10 @@ sap.ui.define([
                     }
                 },
                 plotArea: {
-                    colorPalette: d3.scale.category20().range()
+                    colorPalette: d3.scale.category20().range(),
+                    marker:{
+                        visible : false
+                    }
                 },
                 valueAxis: {
                     title: {
@@ -334,7 +341,7 @@ sap.ui.define([
 
             var oVizFrame = this.getView().byId("vizLPower");
             var oModel = new JSONModel();
-            var url = "http://livelink.schoeneborn-consulting.de/rest/power/" + id + "/" + oDateFormat.format(from) + "/" + oDateFormat.format(to);
+            var url = this.serviceHost+"power/" + id + "/" + oDateFormat.format(from) + "/" + oDateFormat.format(to);
             oModel.loadData(url);
             oVizFrame.setModel(oModel);
         },
@@ -358,7 +365,10 @@ sap.ui.define([
                     }
                 },
                 plotArea: {
-                    colorPalette: d3.scale.category20().range()
+                    colorPalette: d3.scale.category20().range(),
+                    marker:{
+                        visible : false
+                    }
                 },
                 valueAxis: {
                     title: {
@@ -379,7 +389,7 @@ sap.ui.define([
 
             var otMC = this.byId("otMC");
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", "http://livelink.schoeneborn-consulting.de/rest/operatingtime/last/" + id, true); // false for synchronous request
+            xmlHttp.open("GET", this.serviceHost+"operatingtime/last/" + id, true); // false for synchronous request
 
             xmlHttp.onload = function (e) {
                 if (xmlHttp.readyState === 4) {
@@ -401,7 +411,7 @@ sap.ui.define([
 
             var xmlHttp2 = new XMLHttpRequest();
             var scMC = this.byId("scMC");
-            xmlHttp2.open("GET", "http://livelink.schoeneborn-consulting.de/rest/switchcount/last/" + id, true); // false for synchronous request
+            xmlHttp2.open("GET", this.serviceHost+"switchcount/last/" + id, true); // false for synchronous request
 
             xmlHttp2.onload = function (e) {
                 if (xmlHttp2.readyState === 4) {
@@ -423,7 +433,7 @@ sap.ui.define([
             var oModel = new JSONModel();
 
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", "http://livelink.schoeneborn-consulting.de/rest/operatingtime/last/group/" + id, true); // false for synchronous request
+            xmlHttp.open("GET", this.serviceHost+"operatingtime/last/group/" + id, true); // false for synchronous request
             xmlHttp.onload = function (e) {
                 if (xmlHttp.readyState === 4) {
                     if (xmlHttp.status === 200) {
@@ -470,7 +480,7 @@ sap.ui.define([
 //      2.Create a JSON Model and set the data
 
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", "http://livelink.schoeneborn-consulting.de/rest/switchcount/last/group/" + id, true); // false for synchronous request
+            xmlHttp.open("GET", this.serviceHost+"switchcount/last/group/" + id, true); // false for synchronous request
             xmlHttp.onload = function (e) {
                 if (xmlHttp.readyState === 4) {
                     if (xmlHttp.status === 200) {
@@ -515,7 +525,7 @@ sap.ui.define([
             var oVizFrame = this.getView().byId("vizTemperatureG");
             var oModel = new JSONModel();
 
-            oModel.loadData("http://livelink.schoeneborn-consulting.de/rest/temperature/max/group/"+ id + "/" + oDateFormat.format(from) + "/" + oDateFormat.format(to));
+            oModel.loadData(this.serviceHost+"temperature/max/group/"+ id + "/" + oDateFormat.format(from) + "/" + oDateFormat.format(to));
             oVizFrame.setModel(oModel);
         },
         initGHTemperatureViz : function (id) {
@@ -562,7 +572,7 @@ sap.ui.define([
             var oModel = new JSONModel();
 
             oVizFrame.setModel(oModel);
-            oModel.loadData("http://livelink.schoeneborn-consulting.de/rest/power/sum/group/"+ id + "/" + oDateFormat.format(from) + "/" + oDateFormat.format(to));
+            oModel.loadData(this.serviceHost+"power/sum/group/"+ id + "/" + oDateFormat.format(from) + "/" + oDateFormat.format(to));
         },
         initGPowerViz: function (id) {
             //      1.Get the id of the VizFrame
@@ -584,7 +594,10 @@ sap.ui.define([
                     }
                 },
                 plotArea: {
-                    colorPalette: d3.scale.category20().range()
+                    colorPalette: d3.scale.category20().range(),
+                    marker:{
+                        visible : false
+                    }
                 },
                 valueAxis: {
                     title: {
