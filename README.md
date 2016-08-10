@@ -1,2 +1,2 @@
 # TriluxLiveLinkMonitor
-Beschreibung folgt
+Ermöglicht das Monitoring einer LiveLink Anlage.
