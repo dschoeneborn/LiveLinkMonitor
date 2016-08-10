@@ -52,6 +52,6 @@ var appRouter = function(app) {
 
         this.connect.responseQuery(sql, "Temperature", res);
     });
-}
+};
 
 module.exports = appRouter;
