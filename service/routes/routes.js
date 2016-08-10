@@ -25,7 +25,7 @@ var appRouter = function(app) {
         self.connect.responseQuery(sql, "OperatingTime", res);
     });
 
-//TODO: {"OperatingTime": undefined}
+//TODO: {"OperatingTime": undefined} fixen
     app.get("/lights/temperature/:from/:to/max", function(req, res) {
         var sql = "SELECT t.Light_ID AS Light, max(t.Value) AS Value, t.Timestamp AS Time "
         +"FROM Temperature t "
