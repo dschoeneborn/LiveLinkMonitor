@@ -78,7 +78,7 @@ $app->get('/temperature/{id}/{from}/{to}', function ($id, $from, $to) {
 
     return $json;
 });
-
+//
 $app->get('/power/sum/{from}/{to}', function ($from, $to) {
     $sql = "SELECT Timestamp, sum(Value) AS Value
         FROM Power
@@ -90,7 +90,7 @@ $app->get('/power/sum/{from}/{to}', function ($from, $to) {
 
     return $json;
 });
-
+//
 $app->get('/power/sum/group/{id}/{from}/{to}', function ($id, $from, $to) {
     $sql = "SELECT p.Timestamp, sum(p.Value) AS Value
         FROM Power p, Lights l
@@ -103,7 +103,7 @@ $app->get('/power/sum/group/{id}/{from}/{to}', function ($id, $from, $to) {
 
     return $json;
 });
-
+//
 $app->get('/power/{id}/{from}/{to}', function ($id, $from, $to) {
     $sql = "SELECT t.Value AS Value, t.Timestamp
         FROM Power t
@@ -115,7 +115,7 @@ $app->get('/power/{id}/{from}/{to}', function ($id, $from, $to) {
 
     return $json;
 });
-
+//
 $app->get('/switchcount/last', function () {
     $sql = "SELECT ID AS Light, SwitchCount AS Value FROM Last_Values";
 
@@ -124,7 +124,7 @@ $app->get('/switchcount/last', function () {
     
     return $json;
 });
-
+//
 $app->get('/switchcount/last/group/{id}', function ($id) {
     $sql = "SELECT lv.ID AS Light, lv.SwitchCount AS Value
         FROM Last_Values lv, Lights l
@@ -136,7 +136,7 @@ $app->get('/switchcount/last/group/{id}', function ($id) {
     
     return $json;
 });
-
+//
 $app->get('/switchcount/last/{id}', function ($id) {
     $sql = "SELECT ID, SwitchCount AS Value FROM Last_Values WHERE ID='" . $id . "'";
 
