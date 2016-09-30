@@ -9,7 +9,7 @@ sap.ui.define([
     "use strict";
     var CController;
     CController = Controller.extend("sap.m.sample.SplitApp.C", {
-        serviceHost : "http://txui5t01:3000/api/",
+        serviceHost: "http://172.20.10.7:3000/api/",
         onInit: function () {
             this.getSplitAppObj().setHomeIcon({
                 'icon': 'desktop.ico'
@@ -399,7 +399,7 @@ sap.ui.define([
                         var data = JSON.parse(xmlHttp.responseText);
                         //Minuten auf Stunden bringen
                         data.OperatingTime.forEach(function (elem) {
-                            elem.Value = parseInt(elem.Value / 60);
+                            elem.Value = parseInt((elem.Value / 60) / 60);
                         });
 
                         oModel1.setData(data);

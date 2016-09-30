@@ -30,7 +30,8 @@ var appRouter = function(app) {
         var sql = "SELECT t.Light_ID AS Light, max(t.Value) AS Value, t.Timestamp AS Time "
         +"FROM Temperature t "
         +"WHERE Timestamp BETWEEN '" + req.params.from + "' AND '" + req.params.to + "' "
-        +"GROUP BY t.Light_ID";
+        +"GROUP BY t.Light_ID, t.Timestamp;";
+console.log(sql);
 
         self.connect.responseQuery(sql, "Temperature", res);
     });
@@ -65,10 +66,11 @@ var appRouter = function(app) {
 
     app.get("/groups/:id/power/:from/:to", function(req, res) {
         var sql = "SELECT p.Timestamp, sum(p.Value) AS Value "
-        +"FROM Power p, Lights l "
+        +"FROM Power p INNER JOIN Lights l on p.Light_ID = l.ID "
         +"WHERE Timestamp BETWEEN '" + req.params.from + "' AND '" + req.params.to + "' "
         +"AND l.Group_ID = '" + req.params.id + "' "
         +"GROUP BY Timestamp";
+
 
         self.connect.responseQuery(sql, "Power", res);
     });

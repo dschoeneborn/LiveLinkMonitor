@@ -69,16 +69,26 @@ for ($i = 0; $i < $lightCount; $i++) {
         echo "Leuchte noch nicht in Datenbank" . NEXTL;
         //Wenn keine Daten gefunden, lege Leuchte an
         if (!$light->isInDB($conn)) {
-            $light->putMetaInDB($conn);
+            if(strlen($light->groupId)>3)
+            {
+                $light->putMetaInDB($conn);
+            }
+            else
+            {
+               $bb = true;
+               echo "Leuchte ist keiner Gruppe zugeordnet" . NEXTL;
+            }
         }
     }
 
     //Füge neuen Datenzeitpunkt ein
-
+if(!$bb){
     $light->updateOperatingTime($conn, $timestamp);
     $light->updatePower($conn, $timestamp);
     $light->updateSwitchCount($conn, $timestamp);
     $light->updateTemperature($conn, $timestamp);
+}
+$bb = false;
 
     echo NEXTL;
     echo NEXTL;

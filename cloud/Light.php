@@ -84,7 +84,7 @@ class Light {
         {
             $this->putGroupMetaInDB($conn);
         }
-        $sql = sprintf("INSERT INTO Lights (ID, Name, Virtual, Type, Group_ID) "
+        $sql = sprintf("INSERT INTO Lights "
                 . "VALUES('%s', '%s', '%s', '%s', '%s')", $this->id, $this->name, $this->virtual, $this->type, $this->groupId);
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully</br>";
