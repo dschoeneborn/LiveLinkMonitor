@@ -1,4 +1,4 @@
-# TriluxLiveLinkMonitor
+# LiveLinkMonitor
 Ermöglicht das Monitoring einer LiveLink Anlage.
 * Laufzeit
 * Höchsttemperatur
